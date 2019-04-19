@@ -32,6 +32,10 @@
   justify-content: flex-start;
 }
 
+.form__submit {
+  padding-top: 20px;
+}
+
 .customer__accept {
   margin-right: 4px;
 }
@@ -58,7 +62,9 @@
   width: 100px;
   font: bold 15px arial, sans-serif;
   text-shadow: none;
+  text-align: center;
   border-radius: 0.5em;
+  cursor: pointer;
 }
 
 .error {
@@ -100,7 +106,8 @@
 }
 
 .message-panel_error {
-  color: red;
+  background-color: red;
+  color: white;
 }
 
 .message-panel__close {
@@ -109,6 +116,7 @@
   margin: 10px;
   margin-right: 1em;
   padding: 0px;
+  cursor: pointer;
 }
 
 .section_hidden,

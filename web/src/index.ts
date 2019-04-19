@@ -1,4 +1,5 @@
 import './style.css'
+import { initializeDom } from './dom'
 
 fetch('http://localhost:3333/')
   .then(res => res.text())
@@ -8,3 +9,5 @@ fetch('http://localhost:3333/')
       element.innerHTML = txt
     }
   })
+
+initializeDom()

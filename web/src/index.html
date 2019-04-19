@@ -7,9 +7,7 @@
     <title>Klab community 2019 #3 - Typescript in salsa funzionale</title>
   </head>
   <body>
-    <h1 class="title">
-      
-    </h1>
+    <h1 class="title"></h1>
     <section class="section message-panel section_hidden">
       <h1 class="message-panel__text"></h1>
       <button class="button message-panel__close">X</button>
@@ -17,10 +15,14 @@
     <section class="section customer">
       <h2 class="customer__title">customer</h2>
       <div class="customer__panel">
-        <form class="form">
+        <form
+          class="form"
+          method="POST"
+          action="http://localhost:3333/customer"
+        >
           <div class="form__row">
             <label for="customer__name" class="form__label"
-              >*&nbsp;customer name</label
+              >customer name&nbsp;*</label
             >
             <input
               type="text"
@@ -28,11 +30,12 @@
               name="customer__name"
               placeholder="Name"
               class="form__input"
+              value="abc"
             />
           </div>
           <div class="form__row">
             <label for="customer__email" class="form__label"
-              >*&nbsp;email address</label
+              >email address&nbsp;*</label
             >
             <input
               type="text"
@@ -40,11 +43,12 @@
               name="customer__email"
               placeholder="Email"
               class="form__input"
+              value="def"
             />
           </div>
           <div class="form__row">
             <label for="customer__vatcode" class="form__label"
-              >*&nbsp;VAT code</label
+              >VAT code&nbsp;*</label
             >
             <input
               type="text"
@@ -52,6 +56,7 @@
               name="customer__vatcode"
               placeholder="VAT"
               class="form__input"
+              value="ghi"
             />
           </div>
           <div class="form__row">
@@ -62,18 +67,19 @@
               name="customer__website"
               placeholder="Website"
               class="form__input"
+              value="xxxx"
             />
           </div>
-          <div class="form__row form__row_content-start">
+          <div class="form__row form__row_content-end">
             <input
               type="checkbox"
               name="customer__accept"
               class="customer__accept"
             /><span>*&nbsp;terms accepted</span>
           </div>
-          <div class="form__row form__row_content-end">
+          <div class="form__row form__row_content-end form__submit">
             <input
-              type="submit"
+              type="input"
               class="button button__submit"
               value="register!"
             />
