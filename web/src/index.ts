@@ -1,5 +1,6 @@
 import './style.css'
 import { initializeDom } from './dom'
+import { processCustomer } from './oop'
 
 fetch('http://localhost:3333/')
   .then(res => res.text())
@@ -10,4 +11,4 @@ fetch('http://localhost:3333/')
     }
   })
 
-initializeDom()
+initializeDom(processCustomer)

@@ -1,13 +1,17 @@
+import { isBoolean } from 'util'
+
 export const valOf = (name: string) => {
-  const e = document.querySelector('.customer__' + name)
-  return e === null ? '' : e.nodeValue
+  const selector = '[name="customer__' + name.toLowerCase() + '"]'
+  const e = document.querySelector(selector) as HTMLInputElement
+  return e === null || e.value === null ? '' : e.value
 }
-export const checked = (name: string) => {
-  const e = document.querySelector('.customer__' + name)
-  return e !== null && e.nodeValue === 'true'
+export const checkedOf = (name: string) => {
+  const selector = '[name="customer__' + name.toLowerCase() + '"]'
+  const e = document.querySelector(selector) as HTMLInputElement
+  return e !== null && e.checked
 }
 
-export const initializeDom = () => {
+export const initializeDom = (validateF: () => true | string[]) => {
   const panelClose = document.querySelector('.message-panel__close')
   if (panelClose) {
     panelClose.addEventListener('click', closeMessagePanel)
@@ -16,7 +20,7 @@ export const initializeDom = () => {
   if (submitButton === null) {
     return showException('submit button not found:(')
   }
-  submitButton.addEventListener('click', onSubmitClick)
+  submitButton.addEventListener('click', () => onSubmitClick(validateF))
 }
 
 function showMessagePanel(text: string, type: string) {
@@ -65,13 +69,22 @@ function showException(text: string) {
 
 type SubmitResult = { success: true } | { success: false; message: string }
 
-function onSubmitClick() {
+function onSubmitClick(validateF: () => true | string[]) {
+  const validation = validateF()
+  if (!isBoolean(validation)) {
+    showErrors(validation)
+    return
+  }
+  hideErrors()
   const form = document.querySelector('.form') as HTMLFormElement
   const params = new URLSearchParams()
   for (let e in form.elements) {
     const input = form.elements[e] as HTMLInputElement
-    if (input.type === 'text' || input.type === 'checkbox') {
+    if (input.type === 'text') {
       params.append(input.name, input.value)
+    }
+    if (input.type === 'checkbox') {
+      params.append(input.name, JSON.stringify(input.checked))
     }
   }
   fetch(form.action, {
@@ -92,4 +105,30 @@ function onSubmitClick() {
       })
     )
     .catch(e => showException(e))
+}
+function showErrors(errors: string[]) {
+  const errorPanel = document.querySelector('.error')
+  if (!errorPanel) {
+    return
+  }
+  errorPanel.classList.remove('error_hidden')
+  const errorList = document.querySelector('.error__list')
+  if (!errorList) {
+    return
+  }
+  errorList.innerHTML = errors
+    .map(e => '<li class="error__item">' + e + '</li>')
+    .join('')
+}
+function hideErrors() {
+  const errorPanel = document.querySelector('.error')
+  if (!errorPanel) {
+    return
+  }
+  errorPanel.classList.add('error_hidden')
+  const errorList = document.querySelector('.error__list')
+  if (!errorList) {
+    return
+  }
+  errorList.innerHTML = 'errors'
 }
