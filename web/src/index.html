@@ -7,6 +7,85 @@
     <title>Klab community 2019 #3 - Typescript in salsa funzionale</title>
   </head>
   <body>
-    <h1 class="customer__title"></h1>
+    <h1 class="title">
+      Klab community 2019 #3 - Typescript in salsa funzionale
+    </h1>
+    <section class="section message-panel section_hidden">
+      <h1 class="message-panel__text"></h1>
+      <button class="button message-panel__close">X</button>
+    </section>
+    <section class="section customer">
+      <h2 class="customer__title">customer</h2>
+      <div class="customer__panel">
+        <form class="form">
+          <div class="form__row">
+            <label for="customer__name" class="form__label"
+              >*&nbsp;customer name</label
+            >
+            <input
+              type="text"
+              id="customer__name"
+              name="customer__name"
+              placeholder="Name"
+              class="form__input"
+            />
+          </div>
+          <div class="form__row">
+            <label for="customer__email" class="form__label"
+              >*&nbsp;email address</label
+            >
+            <input
+              type="text"
+              id="customer__email"
+              name="customer__email"
+              placeholder="Email"
+              class="form__input"
+            />
+          </div>
+          <div class="form__row">
+            <label for="customer__vatcode" class="form__label"
+              >*&nbsp;VAT code</label
+            >
+            <input
+              type="text"
+              id="customer__vatcode"
+              name="customer__vatcode"
+              placeholder="VAT"
+              class="form__input"
+            />
+          </div>
+          <div class="form__row">
+            <label for="customer__website" class="form__label">Website</label>
+            <input
+              type="text"
+              id="customer__website"
+              name="customer__website"
+              placeholder="Website"
+              class="form__input"
+            />
+          </div>
+          <div class="form__row form__row_content-start">
+            <input
+              type="checkbox"
+              name="customer__accept"
+              class="customer__accept"
+            /><span>*&nbsp;terms accepted</span>
+          </div>
+          <div class="form__row form__row_content-end">
+            <input
+              type="submit"
+              class="button button__submit"
+              value="register!"
+            />
+          </div>
+        </form>
+        <div class="error error_hidden">
+          <h3 class="error__title">ERRORS:</h3>
+          <ul class="error__list">
+            <li class="error__item">error1...</li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
