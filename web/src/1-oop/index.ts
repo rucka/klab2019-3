@@ -1,5 +1,5 @@
-import { emailREx, urlREx, vatcodeREx } from './regex-collection'
-import { valOf, checkedOf } from './dom'
+import { emailREx, urlREx, vatcodeREx } from '../_stuff/regex-collection'
+import { valOf, checkedOf } from '../_stuff/dom'
 
 const validateEmail = (email: string) => emailREx.test(email)
 const validateVatCode = (vatcode: string) => vatcodeREx.test(vatcode)

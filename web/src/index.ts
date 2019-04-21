@@ -1,6 +1,8 @@
 import './style.css'
-import { initializeDom } from './dom'
-import { processCustomer } from './oop'
+import { initializeDom } from './_stuff/dom'
+import { processCustomer } from './1-oop'
+// import { processCustomer } from './2-vanillafp'
+// import { processCustomer } from './3-fpts'
 
 fetch('http://localhost:3333/')
   .then(res => res.text())
