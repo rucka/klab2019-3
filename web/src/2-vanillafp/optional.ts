@@ -15,7 +15,7 @@ const some = <A>(arg: A): Some<A> => <Some<A>>{ a: arg, type: 'some' }
 const none = () => <None>{ type: 'none' }
 
 export namespace Optional {
-  export function bind<A>(arg: A | null): Option<A> {
+  export function lift<A>(arg: A | null): Option<A> {
     if (arg !== null) return some(arg)
     else return none()
   }
@@ -33,7 +33,7 @@ export namespace Optional {
   ): Option<B> {
     return isSome(a) ? f(a.a) : a
   }
-  export function for2<A1, A2, B>(
+  export function liftA2<A1, A2, B>(
     a1: Option<A1>,
     a2: Option<A2>,
     f: (a: A1, b: A2) => B
@@ -49,30 +49,30 @@ export namespace Optional {
     }
     return flatmap(a2, aa2 => flatmap(a1, aa1 => some(f(aa1, aa2))))
   }
-  export function for3<A1, A2, A3, B>(
+  export function liftA3<A1, A2, A3, B>(
     a1: Option<A1>,
     a2: Option<A2>,
     a3: Option<A3>,
     f: (a: A1, b: A2, a3: A3) => B
   ): Option<B> {
-    return for2(a1, for2(a2, a3, (a2, a3) => <[A2, A3]>[a2, a3]), (a1, rest) =>
+    return liftA2(a1, liftA2(a2, a3, (a2, a3) => <[A2, A3]>[a2, a3]), (a1, rest) =>
       f(a1, rest[0], rest[1])
     )
   }
-  export function for4<_E, A1, A2, A3, A4, B>(
+  export function liftA4<_E, A1, A2, A3, A4, B>(
     a1: Option<A1>,
     a2: Option<A2>,
     a3: Option<A3>,
     a4: Option<A4>,
     f: (a: A1, b: A2, a3: A3, a4: A4) => B
   ): Option<B> {
-    return for2(
+    return liftA2(
       a1,
-      for3(a2, a3, a4, (a2, a3, a4) => <[A2, A3, A4]>[a2, a3, a4]),
+      liftA3(a2, a3, a4, (a2, a3, a4) => <[A2, A3, A4]>[a2, a3, a4]),
       (a1, rest) => f(a1, rest[0], rest[1], rest[2])
     )
   }
-  export function for5<A1, A2, A3, A4, A5, B>(
+  export function liftA5<A1, A2, A3, A4, A5, B>(
     a1: Option<A1>,
     a2: Option<A2>,
     a3: Option<A3>,
@@ -80,9 +80,9 @@ export namespace Optional {
     a5: Option<A5>,
     f: (a: A1, b: A2, a3: A3, a4: A4, a5: A5) => B
   ): Option<B> {
-    return for2(
+    return liftA2(
       a1,
-      for4(
+      liftA4(
         a2,
         a3,
         a4,

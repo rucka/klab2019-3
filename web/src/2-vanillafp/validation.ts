@@ -21,7 +21,7 @@ function isError(arg: any): arg is ValidationError {
 }
 
 export namespace Validation {
-  export function bind<E extends ValidationError, A>(
+  export function lift<E extends ValidationError, A>(
     a: A,
     f: (a: A) => A | E
   ): Validated<E, A> {
@@ -44,7 +44,7 @@ export namespace Validation {
   ): Validated<E, B> {
     return isValid(a) ? f(a.a) : a
   }
-  export function for2<E, A1, A2, B>(
+  export function liftA2<E, A1, A2, B>(
     a1: Validated<E, A1>,
     a2: Validated<E, A2>,
     f: (a: A1, b: A2) => B
@@ -60,30 +60,30 @@ export namespace Validation {
     }
     return flatmap(a2, aa2 => flatmap(a1, aa1 => success(f(aa1, aa2))))
   }
-  export function for3<E, A1, A2, A3, B>(
+  export function liftA3<E, A1, A2, A3, B>(
     a1: Validated<E, A1>,
     a2: Validated<E, A2>,
     a3: Validated<E, A3>,
     f: (a: A1, b: A2, a3: A3) => B
   ): Validated<E, B> {
-    return for2(a1, for2(a2, a3, (a2, a3) => <[A2, A3]>[a2, a3]), (a1, rest) =>
+    return liftA2(a1, liftA2(a2, a3, (a2, a3) => <[A2, A3]>[a2, a3]), (a1, rest) =>
       f(a1, rest[0], rest[1])
     )
   }
-  export function for4<E, A1, A2, A3, A4, B>(
+  export function liftA4<E, A1, A2, A3, A4, B>(
     a1: Validated<E, A1>,
     a2: Validated<E, A2>,
     a3: Validated<E, A3>,
     a4: Validated<E, A4>,
     f: (a: A1, b: A2, a3: A3, a4: A4) => B
   ): Validated<E, B> {
-    return for2(
+    return liftA2(
       a1,
-      for3(a2, a3, a4, (a2, a3, a4) => <[A2, A3, A4]>[a2, a3, a4]),
+      liftA3(a2, a3, a4, (a2, a3, a4) => <[A2, A3, A4]>[a2, a3, a4]),
       (a1, rest) => f(a1, rest[0], rest[1], rest[2])
     )
   }
-  export function for5<E, A1, A2, A3, A4, A5, B>(
+  export function liftA5<E, A1, A2, A3, A4, A5, B>(
     a1: Validated<E, A1>,
     a2: Validated<E, A2>,
     a3: Validated<E, A3>,
@@ -91,9 +91,9 @@ export namespace Validation {
     a5: Validated<E, A5>,
     f: (a: A1, b: A2, a3: A3, a4: A4, a5: A5) => B
   ): Validated<E, B> {
-    return for2(
+    return liftA2(
       a1,
-      for4(
+      liftA4(
         a2,
         a3,
         a4,

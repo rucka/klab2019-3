@@ -34,7 +34,7 @@ export function onComplete<A>(
   })
 }
 export namespace Async {
-  export function bind<A>(f: (cb: Callback<A>) => void): Future<A> {
+  export function lift<A>(f: (cb: Callback<A>) => void): Future<A> {
     return { type: 'future', f: f }
   }
 
@@ -46,7 +46,7 @@ export namespace Async {
         cb('invalid error', null)
       })
     }
-    return bind<B>(fB)
+    return lift<B>(fB)
   }
   export function foreach<A>(a: Future<A>, f: (a: A) => void): void {
     a.f((_: string | null, a: A | null) => {
@@ -69,9 +69,9 @@ export namespace Async {
         }
       })
     }
-    return bind<B>(fB)
+    return lift<B>(fB)
   }
-  export function for2<A1, A2, B>(
+  export function liftA2<A1, A2, B>(
     a1: Future<A1>,
     a2: Future<A2>,
     f: (a: A1, b: A2) => B
@@ -85,7 +85,7 @@ export namespace Async {
         })
       })
     }
-    return bind<B>(fB)
+    return lift<B>(fB)
   }
   export function for3<A1, A2, A3, B>(
     a1: Future<A1>,
@@ -93,24 +93,24 @@ export namespace Async {
     a3: Future<A3>,
     f: (a: A1, b: A2, a3: A3) => B
   ): Future<B> {
-    return for2(a1, for2(a2, a3, (a2, a3) => <[A2, A3]>[a2, a3]), (a1, rest) =>
+    return liftA2(a1, liftA2(a2, a3, (a2, a3) => <[A2, A3]>[a2, a3]), (a1, rest) =>
       f(a1, rest[0], rest[1])
     )
   }
-  export function for4<A1, A2, A3, A4, B>(
+  export function liftA4<A1, A2, A3, A4, B>(
     a1: Future<A1>,
     a2: Future<A2>,
     a3: Future<A3>,
     a4: Future<A4>,
     f: (a: A1, b: A2, a3: A3, a4: A4) => B
   ): Future<B> {
-    return for2(
+    return liftA2(
       a1,
       for3(a2, a3, a4, (a2, a3, a4) => <[A2, A3, A4]>[a2, a3, a4]),
       (a1, rest) => f(a1, rest[0], rest[1], rest[2])
     )
   }
-  export function for5<A1, A2, A3, A4, A5, B>(
+  export function liftA5<A1, A2, A3, A4, A5, B>(
     a1: Future<A1>,
     a2: Future<A2>,
     a3: Future<A3>,
@@ -118,9 +118,9 @@ export namespace Async {
     a5: Future<A5>,
     f: (a: A1, b: A2, a3: A3, a4: A4, a5: A5) => B
   ): Future<B> {
-    return for2(
+    return liftA2(
       a1,
-      for4(
+      liftA4(
         a2,
         a3,
         a4,

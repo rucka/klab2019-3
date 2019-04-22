@@ -89,13 +89,13 @@ export const processCustomer = () => {
   saveCustomer(notValidatedCustomer);
   */
 
-  const nameValidated: Validated<CustomerError, string> = Validation.bind<CustomerError, string>(valOf('Name'), validateName)
-  const emailValidated = Validation.bind<CustomerError, string>(valOf('Email'),validateEmail)
-  const vatcodeValidated = Validation.bind<CustomerError, string>(valOf('VATCode'), validateVatCode)
-  const websiteValidated = Validation.bind<CustomerError, string>(valOf('Website'), validateUrl)
-  const acceptValidated: Validated<CustomerError, boolean> = Validation.bind<CustomerError, boolean>(checkedOf('Accept'), validateAccept)
+  const nameValidated: Validated<CustomerError, string> = Validation.lift<CustomerError, string>(valOf('Name'), validateName)
+  const emailValidated = Validation.lift<CustomerError, string>(valOf('Email'),validateEmail)
+  const vatcodeValidated = Validation.lift<CustomerError, string>(valOf('VATCode'), validateVatCode)
+  const websiteValidated = Validation.lift<CustomerError, string>(valOf('Website'), validateUrl)
+  const acceptValidated: Validated<CustomerError, boolean> = Validation.lift<CustomerError, boolean>(checkedOf('Accept'), validateAccept)
 
-  const validatedCustomer: Validated<CustomerError, Customer> = Validation.for5(
+  const validatedCustomer: Validated<CustomerError, Customer> = Validation.liftA5(
     nameValidated,
     emailValidated,
     vatcodeValidated,
@@ -119,13 +119,13 @@ export const processCustomer = () => {
 import {Option, Optional, Some, None, isSome} from "./optional"
 
 export const processCustomer_option = () => {
-  const nameOptional: Option<string> = Optional.bind<string>(valOf('Name'))
-  const emailOptional = Optional.bind<string>(valOf('Email'))
-  const vatcodeOptional = Optional.bind<string>(valOf('VATCode'))
-  const websiteOptional = Optional.bind<string>(valOf('Website'));
-  const acceptOptional: Option<boolean> = Optional.bind<boolean>(checkedOf('Accept'))
+  const nameOptional: Option<string> = Optional.lift<string>(valOf('Name'))
+  const emailOptional = Optional.lift<string>(valOf('Email'))
+  const vatcodeOptional = Optional.lift<string>(valOf('VATCode'))
+  const websiteOptional = Optional.lift<string>(valOf('Website'));
+  const acceptOptional: Option<boolean> = Optional.lift<boolean>(checkedOf('Accept'))
 
-  const optionalCustomer: Option<Customer> = Optional.for5(
+  const optionalCustomer: Option<Customer> = Optional.liftA5(
       nameOptional,
       emailOptional,
       vatcodeOptional,
@@ -154,13 +154,13 @@ const asyncValOf = (name: string) => (cb: Callback<string>) => cb(null, valOf(na
 const asyncCheckedOf = (name: string) => (cb:Callback<boolean>) => cb(null, checkedOf(name))
 
 export const processCustomer_async = () => {
-  const nameFuture: Future<string> = Async.bind<string>(asyncValOf("Name"))
-  const emailFuture = Async.bind<string>(asyncValOf('Email'))
-  const vatcodeFuture = Async.bind<string>(asyncValOf('VATCode'))
-  const websiteFuture = Async.bind<string>(asyncValOf('Website'))
-  const acceptFuture = Async.bind<boolean>(asyncCheckedOf('Accept'))
+  const nameFuture: Future<string> = Async.lift<string>(asyncValOf("Name"))
+  const emailFuture = Async.lift<string>(asyncValOf('Email'))
+  const vatcodeFuture = Async.lift<string>(asyncValOf('VATCode'))
+  const websiteFuture = Async.lift<string>(asyncValOf('Website'))
+  const acceptFuture = Async.lift<boolean>(asyncCheckedOf('Accept'))
 
-  const futureCustomer: Future<Customer> = Async.for5(
+  const futureCustomer: Future<Customer> = Async.liftA5(
       nameFuture,
       emailFuture,
       vatcodeFuture,
