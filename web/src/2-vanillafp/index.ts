@@ -10,14 +10,6 @@ type EmailIsNotValid = { kind: 'EmailIsNotValid', email: string }
 type TermsNotAccepted = { kind: 'TermsNotAccepted' }
 type WebsiteUrlNotValid = { kind: 'WebsiteUrlNotValid',  url: string }
 
-type Customer = {
-  name: string
-  email: string
-  vatCode: string
-  website: string
-  accepted: boolean
-}
-
 function validateName(name: string): string | NameIsEmpty | NameIsTooShort {
   if (name === '') return { kind: 'NameIsEmpty' }
   return name.length > 3 ? name : { kind: 'NameIsTooShort', name: name }
@@ -35,6 +27,14 @@ function validateUrl(url: string): string | WebsiteUrlNotValid {
 }
 function validateAccept(accept: boolean): boolean | TermsNotAccepted {
   return accept ? true : { kind: 'TermsNotAccepted' }
+}
+
+type Customer = {
+  name: string
+  email: string
+  vatCode: string
+  website: string
+  accepted: boolean
 }
 
 function buildCustomer(
