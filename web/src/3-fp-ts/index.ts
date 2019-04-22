@@ -100,6 +100,9 @@ export const processCustomer = () => {
     vatcodeValidated
   )(urlValidated)(acceptValidated)
 
+  const text = customerValidated.map(c => `${c.name}(${c.email})`)
+  text.map(t => alert(`I'm ${t}!`))
+
   return customerValidated.fold<string[] | boolean>(
     e => e.toArray(),
     _ => true
