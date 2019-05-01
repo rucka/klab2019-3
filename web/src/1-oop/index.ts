@@ -43,7 +43,6 @@ class Customer {
   }
 }
 
-
 function getCustomer() {
   const name = valOf('Name')
   const email = valOf('Email')
