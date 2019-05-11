@@ -186,31 +186,22 @@ function showErrors<E>(data: Invalid<E>): void {
 
 ```ts
 type Validated<E, A> = Valid<A> | Invalid<E>
+
+type CustomerError =
+  | NameIsEmpty
+  | NameIsTooShort
+  | VatCodeIsEmpty
+  | VatCodeNotValid
+  | EmailIsEmpty
+  | EmailIsNotValid
+  | WebsiteUrlNotValid
+  | TermsNotAccepted
+  
 ```
 
 ---
 
 ##3.1 discriminated (tagged) union
-
-```ts
-function isValid<A>(arg: any): arg is Valid<A> {
-return arg.a !== undefined;
-}
-
-// here validatedCustomer is Validated<E, Customer>
-if (isValid(validatedCustomer)) { 
-// here validatedCustomer is Valid<Customer>
-return save(validatedCustomer); 
-} else {
-// here validatedCustomer is Invalid<E>
-return showErrors(validatedCustomer);
-}
-
-```
-
----
-
-##3.2 discriminated (tagged) union
 
 ```ts
 interface NameIsTooShort { kind: 'NameIsTooShort', name: string }
@@ -233,6 +224,28 @@ function errorMessage(e: CustomerError): string {
     }
 }
 ```
+
+
+---
+
+##3.2 discriminated (tagged) union
+
+```ts
+function isValid<A>(arg: any): arg is Valid<A> {
+return arg.a !== undefined;
+}
+
+// here validatedCustomer is Validated<E, Customer>
+if (isValid(validatedCustomer)) { 
+// here validatedCustomer is Valid<Customer>
+return save(validatedCustomer); 
+} else {
+// here validatedCustomer is Invalid<E>
+return showErrors(validatedCustomer);
+}
+
+```
+
 ---
 
 ##4. itersection types
@@ -335,7 +348,6 @@ var result = rows.SelectMany(r =>
 
 ####[mandatory]
 ###use a custom _ts.config_
-![left](assets/add-tsconfig.png)
 ![right](assets/virtual-project.png)
 
 ---

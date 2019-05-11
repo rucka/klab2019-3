@@ -10,7 +10,7 @@
   },
   "keywords": [
     "typescript",
-    "io-ts",
+    "fp-ts",
     "klab",
     "functional programming"
   ],

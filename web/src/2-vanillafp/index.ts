@@ -43,7 +43,7 @@ function buildCustomer(
   vatCode: string,
   website: string,
   accepted: boolean
-) {
+): Customer {
   return {
     name: name,
     email: email,
@@ -79,7 +79,7 @@ const errorMessage = (e: CustomerError) => {
 /*****************************VALIDATION*************************************************/
 //Validation can hold either a success value or a failure value (i.e. an error message or some other failure) and has methods for accumulating errors. We will represent a Validation like this: Validation<E,A> where E represents the error type and A represents the success type.
 
-import { Validated, Validation, Valid, Invalid, isValid } from './validation'
+import { Validated, Validation, Valid, Invalid, isValid } from './effects/validation'
 const saveCustomer = (_: Valid<Customer>): true => true
 const showErrors = (data: Invalid<CustomerError>) => data.errors.map(e => errorMessage(e))
 
@@ -116,7 +116,7 @@ export const processCustomer = () => {
 
 /*****************************OPTION*************************************************/
 //getting rid of null values providing our own type for representing optional values, i.e. values that may be present or not: the Option<A>
-import {Option, Optional, Some, None, isSome} from "./optional"
+import {Option, Optional, Some, None, isSome} from "./effects/optional"
 
 export const processCustomer_option = () => {
   const nameOptional: Option<string> = Optional.lift<string>(valOf('Name'))
@@ -148,7 +148,7 @@ export const processCustomer_option = () => {
 
 /*****************************ASYNC*************************************************/
 //Use the Future<T> type to write highly readable and composable asynchronously executing code
-import {Callback, Async, Future, FutureResult, Success, isSuccess, Failure, onComplete} from "./async"
+import {Callback, Async, Future, FutureResult, Success, isSuccess, Failure, onComplete} from "./effects/async"
 
 const asyncValOf = (name: string) => (cb: Callback<string>) => cb(null, valOf(name))
 const asyncCheckedOf = (name: string) => (cb:Callback<boolean>) => cb(null, checkedOf(name))
