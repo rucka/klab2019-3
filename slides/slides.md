@@ -268,10 +268,15 @@ x = {a: 1, c: "three"}; // Error:
 
 ---
 
+
 #### using Functional programming
 ### you are still **alive**
 #### (maybe)
 ![](assets/safe.jpg)
+
+---
+
+![original](assets/chart.png)
 
 ---
 
@@ -390,6 +395,14 @@ var result = rows.SelectMany(r =>
 ###prefer modules over namespaces
 
 ![](assets/modules.png)
+
+---
+
+
+###use fp-ts
+
+![left](assets/fpts1.png)
+![right](assets/fpts2.png)
 
 ---
 
