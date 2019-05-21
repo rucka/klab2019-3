@@ -18,7 +18,7 @@ To run the demo and serve the html page (http://localhost:8080). please exec npm
 
 ## Slides
 
-The slide markup has been compatible with Deckset app for OSX. If you need, you can give a try of the trial version available in the website.
+The slides has been done with Deckset app for OSX. If you need, you can give a try of the trial version available on Deckset website.
 
 The slides are also published on slideshare.
 
