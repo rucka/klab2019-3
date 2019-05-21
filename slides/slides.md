@@ -102,7 +102,7 @@
 
 ---
 
-#example
+#Nominal typing
 
 ```csharp
 class Foo {public string me;}
@@ -121,7 +121,7 @@ System.Console.WriteLine("I am "+ bar.me);
 
 ---
 
-#example
+#Structural typing
 
 ```typescript
 interface Foo { me: string }
