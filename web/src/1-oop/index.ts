@@ -17,7 +17,7 @@ class Customer {
     return this.validate().length === 0
   }
   validate() {
-    let errors: string[] = []
+    const errors: string[] = []
     if (this.name === '') {
       errors.push('name must be filled')
     }

@@ -80,7 +80,7 @@ const errorMessage = (e: CustomerError) => {
 //Validation can hold either a success value or a failure value (i.e. an error message or some other failure) and has methods for accumulating errors. We will represent a Validation like this: Validation<E,A> where E represents the error type and A represents the success type.
 
 import { Validated, Validation, Valid, Invalid, isValid } from './effects/validation'
-const saveCustomer = (_: Valid<Customer>): true => true
+const saveCustomer = (_customer: Valid<Customer>): true => true
 const showErrors = (data: Invalid<CustomerError>) => data.errors.map(e => errorMessage(e))
 
 export const processCustomer = () => {
@@ -88,7 +88,6 @@ export const processCustomer = () => {
   const notValidatedCustomer = buildCustomer(valOf('Name'), valOf('Email'), valOf('VATCode'), valOf('Website'), checkedOf('Accept'));
   saveCustomer(notValidatedCustomer);
   */
-
   const nameValidated: Validated<CustomerError, string> = Validation.lift<CustomerError, string>(valOf('Name'), validateName)
   const emailValidated = Validation.lift<CustomerError, string>(valOf('Email'),validateEmail)
   const vatcodeValidated = Validation.lift<CustomerError, string>(valOf('VATCode'), validateVatCode)
@@ -113,6 +112,58 @@ export const processCustomer = () => {
     return showErrors(validatedCustomer)
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // if (isValid(nameValidated)) {
+  //   if (isValid(emailValidated)) {
+  //     if (isValid(vatcodeValidated)) {
+  //       if (isValid(websiteValidated)) {
+  //         if (isValid(acceptValidated)) {
+  //           const validCustomer = buildCustomer(nameValidated.a, emailValidated.a, vatcodeValidated.a, websiteValidated.a, acceptValidated.a);
+  //           Validation.lift<CustomerError, Customer> (validCustomer, ....);
+  //         } else {
+  //           mergeErrors(errors, acceptValidated.errors);
+  //         } 
+  //       } else {
+  //         mergeErrors(errors, websiteValidated.errors);
+  //       }
+  //     } else {
+  //       mergeErrors(errors, vatcodeValidated.errors);
+  //     }
+  //   }else {
+  //     mergeErrors(errors, emailValidated.errors);
+  //   }
+  // }else {
+  //   mergeErrors(errors, nameValidated.errors);
+  // }
+
 
 /*****************************OPTION*************************************************/
 //getting rid of null values providing our own type for representing optional values, i.e. values that may be present or not: the Option<A>
