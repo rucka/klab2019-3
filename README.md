@@ -7,7 +7,8 @@ Here both the slides and demos of my session "Typescript come (forse) non lo hai
 In order to run the demos you need an editor (Visual Studio Code in my case) and node v11.8.0:
 
 Install all dependencies locally running the command /yarn.sh script.
-Serve the html page and the webserver running npm run start.
+
+To run the demo and serve the html page (http://localhost:8080). please exec npm run start.
 
 ## Demos
 
